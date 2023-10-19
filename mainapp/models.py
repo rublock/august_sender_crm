@@ -3,11 +3,11 @@ from django.db import models
 
 class Client(models.Model):
     name = models.CharField(verbose_name="ФИО", max_length=100)
-    contact = models.TextField(verbose_name="Контакт", blank=True, max_length=200)
-    where_from = models.TextField(verbose_name="Источник заказа", blank=True, max_length=200)
-    oder_details = models.TextField(verbose_name="Индивидуальные условия заказа", blank=True, max_length=200)
-    address = models.TextField(verbose_name="Адрес доставки", blank=True, max_length=200)
-    notes = models.TextField(verbose_name="Заметки", blank=True, max_length=200)
+    contact = models.CharField(verbose_name="Контакт", blank=True, max_length=200)
+    where_from = models.CharField(verbose_name="Источник заказа", blank=True, max_length=200)
+    oder_details = models.CharField(verbose_name="Индивидуальные условия заказа", blank=True, max_length=200)
+    address = models.CharField(verbose_name="Адрес доставки", blank=True, max_length=200)
+    notes = models.CharField(verbose_name="Заметки", blank=True, max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -32,13 +32,30 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    name = models.CharField(verbose_name="Название", max_length=100)
-    order_product = models.ManyToManyField(Product)
-    ordr_client = models.ManyToManyField(Client)
-
-    def __str__(self):
-        return f'{self.name}'
-
+    description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
+
+
+class OrderPosition(models.Model):
+    class OrderStatus(models.IntegerChoices):
+        ORDER_1 = 1, 'Поступил'
+        ORDER_2 = 2, 'Собран'
+        ORDER_3 = 3, 'Отправлен'
+        ORDER_4 = 4, 'Срочно'
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
+    status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1,
+                                                 help_text="Position in the company?")
+
+    def __str__(self):
+        return f'{self.order}'
+
+    class Meta:
+        verbose_name = "Позиция"
+        verbose_name_plural = "Позиции"

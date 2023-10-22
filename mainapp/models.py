@@ -55,6 +55,7 @@ class OrderPosition(models.Model):
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
     status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1,
                                                  help_text="Position in the company?")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.description}'

@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import Client, Product, Order, OrderPosition
+from .models import Client, Order, OrderPosition
 
 admin.site.register(Client)
-admin.site.register(Product)
 
 
 class OrderPositionInline(admin.TabularInline):

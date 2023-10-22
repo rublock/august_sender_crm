@@ -19,16 +19,16 @@ class Client(models.Model):
         verbose_name_plural = "Клиенты"
 
 
-class Product(models.Model):
-    name = models.CharField(verbose_name="Наименование", max_length=100)
-    material = models.CharField(verbose_name="Материал", blank=True, max_length=100)
-
-    def __str__(self):
-        return f'{self.name}'
-
-    class Meta:
-        verbose_name = "Изделие"
-        verbose_name_plural = "Изделия"
+# class Product(models.Model):
+#     name = models.CharField(verbose_name="Наименование", max_length=100)
+#     material = models.CharField(verbose_name="Материал", blank=True, max_length=100)
+#
+#     def __str__(self):
+#         return f'{self.name}'
+#
+#     class Meta:
+#         verbose_name = "Изделие"
+#         verbose_name_plural = "Изделия"
 
 
 class Order(models.Model):
@@ -36,6 +36,9 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
+
+    def __str__(self):
+        return f'{self.description}'
 
 
 class OrderPosition(models.Model):
@@ -45,16 +48,16 @@ class OrderPosition(models.Model):
         ORDER_3 = 3, 'Отправлен'
         ORDER_4 = 4, 'Срочно'
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.CharField(verbose_name="Продукт", blank=True, max_length=100)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
     status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1,
                                                  help_text="Position in the company?")
 
     def __str__(self):
-        return f'{self.order}'
+        return f'{self.description}'
 
     class Meta:
         verbose_name = "Позиция"

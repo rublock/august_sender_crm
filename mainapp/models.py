@@ -19,18 +19,6 @@ class Client(models.Model):
         verbose_name_plural = "Клиенты"
 
 
-# class Product(models.Model):
-#     name = models.CharField(verbose_name="Наименование", max_length=100)
-#     material = models.CharField(verbose_name="Материал", blank=True, max_length=100)
-#
-#     def __str__(self):
-#         return f'{self.name}'
-#
-#     class Meta:
-#         verbose_name = "Изделие"
-#         verbose_name_plural = "Изделия"
-
-
 class Order(models.Model):
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
     class Meta:

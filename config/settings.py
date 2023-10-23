@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'mainapp',
     'rest_framework',
-    'mainapp_api.apps.MainappApiConfig',
+    'mainapp_api',
 ]
 
 REST_FRAMEWORK = {

@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'bootstrap5',
     'mainapp',
     'rest_framework',
-    'mainapp_api.apps.MainappApiConfig',
+    'mainapp_api',
 ]
 
 REST_FRAMEWORK = {

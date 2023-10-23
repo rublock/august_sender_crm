@@ -1,7 +1,11 @@
 from rest_framework import generics
-from mainapp.models import OrderPosition
-from .serializers import OrderPositionSerializer
+from mainapp.models import OrderPosition, Client
+from .serializers import OrderPositionSerializer, ClientPositionSerializer
 
-class OrderPositionList(generics.ListAPIView):
+class OrderPositionAPI(generics.ListAPIView):
     queryset = OrderPosition.objects.all()
     serializer_class = OrderPositionSerializer
+
+class ClientPositionAPI(generics.ListAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientPositionSerializer

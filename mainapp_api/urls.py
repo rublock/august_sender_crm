@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import OrderPositionList
+from .views import OrderPositionAPI, ClientPositionAPI
 
 urlpatterns = [
-    path("", OrderPositionList.as_view(), name="order_list"),
+    path("orders/", OrderPositionAPI.as_view(), name="orders"),
+    path("clients/", ClientPositionAPI.as_view(), name="clients"),
 ]

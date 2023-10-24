@@ -1,25 +1,10 @@
-<tr class="{% if i.status %}grey-text{% endif %}">
-    <td class="align-middle text-center ps-2">
-        {{ i.id }}
-    </td>
-    <td class="align-middle ps-2">
-        {{ i.product }}
-    </td>
-    <td class="align-middle ps-2">
-        {{ i.client }}
-    </td>
-    <td class="align-middle text-center">
-        {{ i.quantity }}
-    </td>
-    <td class="align-middle text-center">
-        {{ i.status }}
-    </td>
-    <td class="align-middle text-center">
-        {{ i.description }}
-    </td>
-    <td class="align-middle text-center">
-        Кнопка удалить
-    </td>
-
-    </td>
+<tr>
+    <th scope="row">{{ i.id }}</th>
+    <td>{{ i.product }}</td>
+    <td>{{ i.client }}</td>
+    <td>{{ i.quantity }}</td>
+    <td>{{ i.status }}</td>
+    <td>{{ i.description }}</td>
+    <td>кнопка удалить</td>
 </tr>
+

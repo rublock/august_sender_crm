@@ -1,34 +1,60 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}" type="text/css">
-    <title>Document</title>
-</head>
-<body class="d-flex flex-column h-100">
+{% extends "base.html" %}
+{% block content %}
 
-<header>
-  <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a type="button" class="btn btn-primary">Заказы</a>
-      <a type="button" class="btn btn-success">Клиенты</a>
-      <a type="button" class="btn btn-secondary">Товары</a>
-      <a type="button" class="btn btn-danger" href="{% url 'orders' %}">API заказы</a>
-      <a type="button" class="btn btn-danger" href="{% url 'clients' %}">API клиенты</a>
-      <a type="button" class="btn btn-warning" href="{% url 'admin:index' %}">Admin</a>
+<h2>home_page.html</h2>
+
+<div>
+    <div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 18%">
+                        <small>
+                            Заказ
+                        </small>
+                    </th>
+                    <th scope="col" style="width: 18%">
+                        <small>
+                            Продукт
+                        </small>
+                    </th>
+                    <th scope="col" style="width: 18%">
+                        <small>
+                            Клиент
+                        </small>
+                    </th>
+                    <th scope="col" style="width: 9%">
+                        <small>
+                            Количество
+                        </small>
+                    </th>
+                    <th scope="col" style="width: 7%">
+                        <small>
+                            Статус
+                        </small>
+                    </th>
+                    <th scope="col" style="width: 23%">
+                        <small>
+                            Примечание
+                        </small>
+                    </th>
+                    <th scope="col" style="width: 16%">
+                        <small>
+                            Действие
+                        </small>
+                    </th>
+
+                </tr>
+                </thead>
+
+                <tbody id="book-list">
+                    {% include "partial_order_positions_list.html" %}
+                </tbody>
+
+            </table>
+        </div>
     </div>
-  </nav>
-</header>
+</div>
 
-
-
-    <script src="{% static 'js/app.js' %}"></script>
-
-</body>
-</html>
+{% endblock %}

@@ -40,9 +40,9 @@ class OrderPosition(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
     status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1,
                                                  help_text="Position in the company?")
+    description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

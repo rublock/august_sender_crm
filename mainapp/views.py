@@ -1,6 +1,7 @@
-from django.http.response import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+from .forms import NewOrderForm
+from django.http import HttpResponse
 
 from .models import OrderPosition
 
@@ -18,3 +19,18 @@ def order_positions_list(request):
         'order_positions_list_status_3': order_positions_list_status_3,
         'order_positions_list_status_4': order_positions_list_status_4,
         })
+
+
+def new_order(request):
+    if request.method == "POST":
+        client = request.POST.get("client")
+        product = request.POST.get("product")
+        quantity = request.POST.get("quantity")
+        description = request.POST.get("description")
+        status = request.POST.get("status")
+        new_order_form = NewOrderForm()
+        print(client, product, quantity, description, status)
+        return render(request, "new_order.html", {"new_order_form": new_order_form})
+    else:
+        new_order_form = NewOrderForm()
+        return render(request, "new_order.html", {"new_order_form": new_order_form})

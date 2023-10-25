@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from .forms import NewOrderForm
-from django.http import HttpResponse
+from django.shortcuts import redirect
 
-from .models import OrderPosition
+from .models import OrderPosition, Client, Order
 
 
 @require_http_methods(['GET'])
@@ -22,15 +22,36 @@ def order_positions_list(request):
 
 
 def new_order(request):
+
+    if request.method == "GET":
+        order = Order.objects.create()
+        order.save()
+        order_number = order.id
+
     if request.method == "POST":
-        client = request.POST.get("client")
-        product = request.POST.get("product")
-        quantity = request.POST.get("quantity")
-        description = request.POST.get("description")
-        status = request.POST.get("status")
-        new_order_form = NewOrderForm()
-        print(client, product, quantity, description, status)
-        return render(request, "new_order.html", {"new_order_form": new_order_form})
+
+        form = NewOrderForm(request.POST)
+
+        if form.is_valid():
+            form_data = form.cleaned_data
+
+            order_position = OrderPosition.objects.create(
+                order_id=order_number,
+                client=form_data['client'],
+                product=form_data['product'],
+                quantity=form_data['quantity'],
+                status=form_data['status'],
+                description= form_data['description'],
+                )
+            
+            order_position.save()
+
+        return redirect('mainapp:home_page')
     else:
+
         new_order_form = NewOrderForm()
-        return render(request, "new_order.html", {"new_order_form": new_order_form})
+
+        return render(request, "new_order.html", {
+            "new_order_form": new_order_form,
+            "order_number": order_number,
+            })

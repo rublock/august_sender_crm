@@ -20,7 +20,9 @@ class Client(models.Model):
 
 
 class Order(models.Model):
+
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=100)
+
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
@@ -30,6 +32,7 @@ class Order(models.Model):
 
 
 class OrderPosition(models.Model):
+
     class OrderStatus(models.IntegerChoices):
         ORDER_1 = 1, 'Поступил'
         ORDER_2 = 2, 'Собран'
@@ -37,8 +40,8 @@ class OrderPosition(models.Model):
         ORDER_4 = 4, 'Срочно'
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)
-    product = models.CharField(verbose_name="Продукт", blank=True, max_length=100)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    product = models.CharField(verbose_name="Продукт", max_length=100)
     quantity = models.IntegerField(default=1)
     status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1)
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=200)

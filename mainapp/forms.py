@@ -2,6 +2,7 @@ from django import forms
 from .models import Client, Order
  
 class NewOrderForm(forms.Form):
+    
     CHOICES = [
         (1, 'Поступил'),
         (2, 'Собран'),
@@ -9,7 +10,6 @@ class NewOrderForm(forms.Form):
         (4, 'Срочно')
     ]
 
-    # order = forms.IntegerField(initial=Order.objects.all())
     client = forms.ModelChoiceField(queryset=Client.objects.all())
     product = forms.CharField(label="Продукт", max_length=100)
     quantity = forms.IntegerField(initial=1)

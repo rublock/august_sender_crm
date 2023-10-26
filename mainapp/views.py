@@ -8,6 +8,7 @@ from .models import OrderPosition, Order
 
 @require_http_methods(['GET'])
 def order_positions_list(request):
+    
     order_positions_list_status_1 = OrderPosition.objects.filter(status=1)
     order_positions_list_status_2 = OrderPosition.objects.filter(status=2)
     order_positions_list_status_3 = OrderPosition.objects.filter(status=3)
@@ -22,19 +23,18 @@ def order_positions_list(request):
 
 def new_order(request):
 
-    if request.method == "GET":
-        order = Order.objects.create()
-        order_number = order.id
-
     if request.method == "POST":
 
         form = NewOrderForm(request.POST)
 
         if form.is_valid():
+
             form_data = form.cleaned_data
 
+            order = Order.objects.create()
+
             order_position = OrderPosition.objects.create(
-                order_id=Order.objects.latest('id').id,
+                order_id=order.id,
                 client=form_data['client'],
                 product=form_data['product'],
                 quantity=form_data['quantity'],
@@ -51,5 +51,4 @@ def new_order(request):
 
         return render(request, "new_order.html", {
             "new_order_form": new_order_form,
-            "order_number": order_number,
             })

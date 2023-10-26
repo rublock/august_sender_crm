@@ -3,7 +3,7 @@ from django.views.decorators.http import require_http_methods
 from .forms import NewOrderForm
 from django.shortcuts import redirect
 
-from .models import OrderPosition, Client, Order
+from .models import OrderPosition, Order
 
 
 @require_http_methods(['GET'])
@@ -20,12 +20,10 @@ def order_positions_list(request):
         'order_positions_list_status_4': order_positions_list_status_4,
         })
 
-
 def new_order(request):
 
     if request.method == "GET":
         order = Order.objects.create()
-        order.save()
         order_number = order.id
 
     if request.method == "POST":
@@ -36,7 +34,7 @@ def new_order(request):
             form_data = form.cleaned_data
 
             order_position = OrderPosition.objects.create(
-                order_id=order_number,
+                order_id=Order.objects.latest('id').id,
                 client=form_data['client'],
                 product=form_data['product'],
                 quantity=form_data['quantity'],

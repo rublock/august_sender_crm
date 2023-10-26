@@ -1,60 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>home_page.html</h2>
-
-<div>
-    <div>
-        <div>
-            <table>
-                <thead>
-                <tr>
-                    <th scope="col" style="width: 18%">
-                        <small>
-                            Заказ
-                        </small>
-                    </th>
-                    <th scope="col" style="width: 18%">
-                        <small>
-                            Продукт
-                        </small>
-                    </th>
-                    <th scope="col" style="width: 18%">
-                        <small>
-                            Клиент
-                        </small>
-                    </th>
-                    <th scope="col" style="width: 9%">
-                        <small>
-                            Количество
-                        </small>
-                    </th>
-                    <th scope="col" style="width: 7%">
-                        <small>
-                            Статус
-                        </small>
-                    </th>
-                    <th scope="col" style="width: 23%">
-                        <small>
-                            Примечание
-                        </small>
-                    </th>
-                    <th scope="col" style="width: 16%">
-                        <small>
-                            Действие
-                        </small>
-                    </th>
-
-                </tr>
-                </thead>
-
-                <tbody id="book-list">
-                    {% include "partial_order_positions_list.html" %}
-                </tbody>
-
-            </table>
-        </div>
-    </div>
+<div class="container card">
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Клиент</th>
+            <th scope="col">Продукт</th>
+            <th scope="col">Кол-во</th>
+            <th scope="col">Примечание</th>
+            <th scope="col">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% include "partial_order_positions_list.html" %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}

@@ -1,12 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container card" style="align-items: center;">
-    <form method="POST" style="margin: 20px 0px 20px 0px;">
+    <form id="new_order_form" method="POST" style="margin: 20px 0px 20px 0px;">
         {% csrf_token %}
     <table>
         {{ new_order_form }}
     </table>
-    <input type="submit" value="Send" >
+    <button type="submit" class="btn btn-primary">Создать</button>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Заказ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+          # <span id="order_number_span"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+

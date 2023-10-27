@@ -1,21 +1,37 @@
 console.log('welcome to august_sender_crm')
 
-let xhr = new XMLHttpRequest();
+document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('new_order_form');
 
-xhr.open('GET', 'http://127.0.0.1:8000/api/', true);
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();  // Предотвращаем стандартное действие формы
 
-xhr.onload = function() {
-    if (xhr.status >= 200 && xhr.status < 300) {
-        let responseData = JSON.parse(xhr.responseText);
-        console.log(responseData);
-    } else {
-        console.error(xhr.statusText);
-    }
-};
+        // Собираем данные из формы
+        var formData = new FormData(form);
 
-xhr.onerror = function() {
-    console.error('Произошла сетевая ошибка');
-};
+        // Создаем и настраиваем объект для AJAX-запроса
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://127.0.0.1:8000/order/', true);
 
-xhr.send();
+        // Определяем обработчик успешного ответа
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Обработка успешного ответа от сервера
+                var response = JSON.parse(xhr.responseText);
+                alert(`Заказ #${response["order.id"]} создан`);
+                window.location.href = "/";
+            } else {
+                // Обработка ошибки
+                console.log('Ошибка: ' + xhr.status);
+            }
+        };
 
+        // Определяем обработчик ошибки
+        xhr.onerror = function () {
+            console.log('Произошла ошибка сети');
+        };
+
+        // Отправляем данные на сервер
+        xhr.send(formData);
+    });
+});

@@ -11,5 +11,5 @@ class OrderPositionInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'description']
+    list_display = ['id']
     inlines = [OrderPositionInline]

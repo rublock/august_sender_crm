@@ -20,13 +20,14 @@ class Client(models.Model):
 
 
 class Order(models.Model):
+    created_at = models.DateTimeField(default=timezone.now)
+
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
 
 
 class OrderPosition(models.Model):
-
     class OrderStatus(models.IntegerChoices):
         ORDER_1 = 1, 'Поступил'
         ORDER_2 = 2, 'Собран'
@@ -39,7 +40,6 @@ class OrderPosition(models.Model):
     quantity = models.IntegerField(default=1)
     status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1)
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=200)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.status}'

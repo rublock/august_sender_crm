@@ -58,10 +58,10 @@ def new_order(request):
 def new_client(request):
     if request.method == "POST":
 
-        new_client_form = NewClientForm(request.POST)
+        form = NewClientForm(request.POST)
 
-        if new_client_form.is_valid():
-            form_data = new_client_form.cleaned_data
+        if form.is_valid():
+            form_data = form.cleaned_data
 
             client = Client.objects.create(
                 name=form_data['name'],

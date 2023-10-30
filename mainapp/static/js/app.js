@@ -1,37 +1,43 @@
 console.log('welcome to august_sender_crm')
 
-document.addEventListener('DOMContentLoaded', function () {
-    var form = document.getElementById('new_order_form');
+let form = document.querySelector('.form')
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();  // Предотвращаем стандартное действие формы
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-        // Собираем данные из формы
-        var formData = new FormData(form);
+    let formData = new FormData(form);
 
-        // Создаем и настраиваем объект для AJAX-запроса
-        var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
+
+    if (form.classList[1] == 'order') {
         xhr.open('POST', 'http://127.0.0.1:8000/order/', true);
 
-        // Определяем обработчик успешного ответа
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
-                // Обработка успешного ответа от сервера
-                var response = JSON.parse(xhr.responseText);
+                let response = JSON.parse(xhr.responseText);
                 alert(`Заказ #${response["order.id"]} создан`);
                 window.location.href = "/";
             } else {
-                // Обработка ошибки
                 console.log('Ошибка: ' + xhr.status);
             }
         };
 
-        // Определяем обработчик ошибки
         xhr.onerror = function () {
             console.log('Произошла ошибка сети');
         };
 
-        // Отправляем данные на сервер
         xhr.send(formData);
-    });
+
+    } else if (form.classList[1] == 'client') {
+        xhr.open('POST', 'http://127.0.0.1:8000/client/', true);
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+                let response = JSON.parse(xhr.responseText);
+                alert(`Клиент #${response["client.name"]} создан`);
+                window.location.href = "/";
+            } else {
+                console.log('Ошибка: ' + xhr.status);
+            }
+    }
+
 });

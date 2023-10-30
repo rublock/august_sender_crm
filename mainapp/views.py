@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
-from .forms import NewOrderForm
+from .forms import NewOrderForm, NewClientForm
 
-from .models import OrderPosition, Order
+from .models import OrderPosition, Order, Client
 
 
 @require_http_methods(['GET'])
@@ -52,4 +52,36 @@ def new_order(request):
 
         return render(request, "new_order.html", {
             "new_order_form": new_order_form,
+        })
+
+
+def new_client(request):
+    if request.method == "POST":
+
+        new_client_form = NewClientForm(request.POST)
+
+        if new_client_form.is_valid():
+            form_data = new_client_form.cleaned_data
+
+            client = Client.objects.create(
+                name=form_data['name'],
+                contact=form_data['contact'],
+                where_from=form_data['where_from'],
+                oder_details=form_data['oder_details'],
+                address=form_data['address'],
+                notes=form_data['notes'],
+            )
+
+            client.save()
+
+            return JsonResponse({'name': client.name})
+        else:
+            return JsonResponse({'error': 'Server error'}, status=400)
+
+    else:
+
+        new_client_form = NewClientForm()
+
+        return render(request, "new_client.html", {
+            "new_client_form": new_client_form,
         })

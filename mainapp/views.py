@@ -92,3 +92,16 @@ def client_list(request):
     return render(request, 'clients.html', {
         'client_list': client_list
     })
+
+
+def client(request, id):
+    if request.method == "POST":
+        pass
+    else:
+        client = Client.objects.get(id=id)
+        form = NewClientForm()
+        form.fields['name'].empty_value = client.name
+
+        return render(request, "client.html", {
+            "form": form,
+        })

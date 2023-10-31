@@ -3,5 +3,5 @@
     <td>{{ i.name }}</td>
     <td>{{ i.contact }}</td>
     <td>{{ i.address }}</td>
-    <td>Изменить</td>
+    <td><a href="{% url 'mainapp:client' i.id %}" aria-current="page">Изменить</a></td>
 </tr>

@@ -94,10 +94,10 @@ def client_list(request):
     })
 
 
-def client(request, id):
+def edit_client(request, id):
 
-    if request.method == "POST":
-        form = ChangeClientForm(request.POST)
+    if request.method == "UPDATE":
+        form = ChangeClientForm(request.UPDATE)
 
         if form.is_valid():
             form_data = form.cleaned_data
@@ -116,8 +116,8 @@ def client(request, id):
             return JsonResponse({'name': client.name})
     else:
         client = Client.objects.get(id__iexact=id)
-        form = ChangeClientForm(instance=client)
+        client_change_form = ChangeClientForm(instance=client)
 
         return render(request, "client.html", {
-            "form": form,
+            "client_change_form": client_change_form,
         })

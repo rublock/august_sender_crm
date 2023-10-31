@@ -50,7 +50,7 @@ form.addEventListener('submit', function (e) {
        xhr.send(formData);
 
     } else if (form.classList[1] == 'edit_client') {
-        xhr.open('POST', 'http://127.0.0.1:8000/client/' + clientId, true);
+        xhr.open('UPDATE', 'http://127.0.0.1:8000/client/' + clientId, true);
 
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container card" style="align-items: center;">
-    <form class="form edit_client" method="POST" style="margin: 20px 0px 20px 0px;">
+    <form class="form edit_client" method="UPDATE" style="margin: 20px 0px 20px 0px;">
         {% csrf_token %}
     <table>
-        {{ form }}
+        {{ client_change_form }}
     </table>
     <button type="submit" class="btn btn-primary">Изменить</button>
 </div>

@@ -97,7 +97,23 @@ def client_list(request):
 def client(request, id):
 
     if request.method == "POST":
-        pass
+        form = ChangeClientForm(request.POST)
+
+        if form.is_valid():
+            form_data = form.cleaned_data
+
+            client = Client.objects.create(
+                name=form_data['name'],
+                contact=form_data['contact'],
+                where_from=form_data['where_from'],
+                oder_details=form_data['oder_details'],
+                address=form_data['address'],
+                notes=form_data['notes'],
+            )
+
+            client.save()
+
+            return JsonResponse({'name': client.name})
     else:
         client = Client.objects.get(id__iexact=id)
         form = ChangeClientForm(instance=client)

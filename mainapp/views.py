@@ -1,7 +1,7 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
-from .forms import NewOrderForm, NewClientForm
+from .forms import NewOrderForm, NewClientForm, ChangeClientForm
 
 from .models import OrderPosition, Order, Client
 
@@ -95,12 +95,12 @@ def client_list(request):
 
 
 def client(request, id):
+
     if request.method == "POST":
         pass
     else:
-        client = Client.objects.get(id=id)
-        form = NewClientForm()
-        form.fields['name'].empty_value = client.name
+        client = Client.objects.get(id__iexact=id)
+        form = ChangeClientForm(instance=client)
 
         return render(request, "client.html", {
             "form": form,

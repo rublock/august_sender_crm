@@ -8,7 +8,7 @@ form.addEventListener('submit', function (e) {
     let formData = new FormData(form);
     let xhr = new XMLHttpRequest();
 
-    if (form.classList[1] == 'order') {
+    if (form.classList[1] == 'new_order') {
         xhr.open('POST', 'http://127.0.0.1:8000/order/', true);
 
         xhr.onload = function () {
@@ -27,7 +27,7 @@ form.addEventListener('submit', function (e) {
 
         xhr.send(formData);
 
-    } else if (form.classList[1] == 'client') {
+    } else if (form.classList[1] == 'new_client') {
         xhr.open('POST', 'http://127.0.0.1:8000/client/', true);
 
         xhr.onload = function () {

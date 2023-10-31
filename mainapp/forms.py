@@ -46,3 +46,18 @@ class NewClientForm(forms.Form):
         'class': 'form-control',
         'rows': 3,
     }))
+
+
+class ChangeClientForm(forms.ModelForm):
+    class Meta:
+        model = Client
+        fields = ['name', 'contact', 'where_from', 'oder_details', 'address', 'notes']
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'contact': forms.TextInput(attrs={'class': 'form-control'}),
+            'where_from': forms.TextInput(attrs={'class': 'form-control'}),
+            'oder_details': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, }),
+            'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, }),
+        }

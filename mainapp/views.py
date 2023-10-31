@@ -45,9 +45,7 @@ def new_order(request):
             return JsonResponse({'order.id': order.id})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
-
     else:
-
         new_order_form = NewOrderForm()
 
         return render(request, "new_order.html", {
@@ -77,9 +75,7 @@ def new_client(request):
             return JsonResponse({'name': client.name})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
-
     else:
-
         new_client_form = NewClientForm()
 
         return render(request, "new_client.html", {
@@ -95,25 +91,15 @@ def client_list(request):
 
 
 def edit_client(request, id):
+    if request.method == "POST":
+        client = Client.objects.get(id__iexact=id)
+        client_change_form = ChangeClientForm(request.POST, instance=client)
 
-    if request.method == "UPDATE":
-        form = ChangeClientForm(request.UPDATE)
-
-        if form.is_valid():
-            form_data = form.cleaned_data
-
-            client = Client.objects.create(
-                name=form_data['name'],
-                contact=form_data['contact'],
-                where_from=form_data['where_from'],
-                oder_details=form_data['oder_details'],
-                address=form_data['address'],
-                notes=form_data['notes'],
-            )
-
-            client.save()
-
-            return JsonResponse({'name': client.name})
+        if client_change_form.is_valid():
+            new_client = client_change_form.save()
+            return JsonResponse({'name': new_client.name})
+        else:
+            return JsonResponse({'error': 'Server error'}, status=400)
     else:
         client = Client.objects.get(id__iexact=id)
         client_change_form = ChangeClientForm(instance=client)

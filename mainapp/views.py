@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
-from .forms import NewOrderForm, NewClientForm, ChangeClientForm
+from .forms import NewOrderForm, NewClientForm, ChangeClientForm, ChangeOrderForm
 
 from .models import OrderPosition, Order, Client
 
@@ -53,6 +53,25 @@ def new_order(request):
         })
 
 
+def edit_order(request, id):
+    if request.method == "POST":
+        order = OrderPosition.objects.get(id__iexact=id)
+        order_change_form = ChangeOrderForm(request.POST, instance=order)
+
+        if order_change_form.is_valid():
+            new_order = order_change_form.save()
+            return JsonResponse({'new_order.id': new_order.id})
+        else:
+            return JsonResponse({'error': 'Server error'}, status=400)
+    else:
+        order = OrderPosition.objects.get(id__iexact=id)
+        order_change_form = ChangeOrderForm(instance=order)
+
+        return render(request, "order.html", {
+            "order_change_form": order_change_form,
+        })
+
+
 def new_client(request):
     if request.method == "POST":
 
@@ -72,7 +91,7 @@ def new_client(request):
 
             client.save()
 
-            return JsonResponse({'name': client.name})
+            return JsonResponse({'client.name': client.name})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:
@@ -97,7 +116,7 @@ def edit_client(request, id):
 
         if client_change_form.is_valid():
             new_client = client_change_form.save()
-            return JsonResponse({'name': new_client.name})
+            return JsonResponse({'new_client.name': new_client.name})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:

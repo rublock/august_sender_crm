@@ -4,5 +4,5 @@
     <td>{{ n.product }}</td>
     <td>{{ n.quantity }}</td>
     <td>{{ n.description }}</td>
-    <td>Изменить</td>
+    <td><a href="{% url 'mainapp:edit_order' n.id %}" aria-current="page">Изменить</a></td>
 </tr>

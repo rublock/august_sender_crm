@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container card">
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Контакт</th>
+            <th scope="col">Адрес доставки</th>
+            <th scope="col">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% include "client_list.html" %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

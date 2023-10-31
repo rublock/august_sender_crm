@@ -11,11 +11,11 @@ class OrderPositionSerializer(serializers.ModelSerializer):
             "quantity",
             "description",
             "status",
-            "created_at",
         )
         model = OrderPosition
 
-class ClientPositionSerializer(serializers.ModelSerializer):
+
+class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
             "name",
@@ -25,6 +25,5 @@ class ClientPositionSerializer(serializers.ModelSerializer):
             "address",
             "notes",
             "created_at",
-            "updated_at",
         )
         model = Client

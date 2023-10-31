@@ -85,3 +85,10 @@ def new_client(request):
         return render(request, "new_client.html", {
             "new_client_form": new_client_form,
         })
+
+
+def client_list(request):
+    client_list = Client.objects.all()
+    return render(request, 'clients.html', {
+        'client_list': client_list
+    })

@@ -38,7 +38,7 @@ class NewClientForm(forms.Form):
                                    widget=forms.TextInput(attrs={
                                        'class': 'form-control'
                                    }))
-    address = forms.CharField(label="Адрес доставки", required=False, max_length=200, widget=forms.Textarea(attrs={
+    address = forms.CharField(label="Адрес доставки", max_length=200, widget=forms.Textarea(attrs={
         'class': 'form-control',
         'rows': 3,
     }))

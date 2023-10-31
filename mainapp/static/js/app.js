@@ -12,7 +12,7 @@ form.addEventListener('submit', function (e) {
     let xhr = new XMLHttpRequest();
 
     if (form.classList[1] == 'new_order') {
-        xhr.open('POST', 'http://127.0.0.1:8000/order/', true);
+        xhr.open('POST', 'http://127.0.0.1:8000/new_order/', true);
 
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
@@ -31,12 +31,12 @@ form.addEventListener('submit', function (e) {
         xhr.send(formData);
 
     } else if (form.classList[1] == 'new_client') {
-        xhr.open('POST', 'http://127.0.0.1:8000/client/', true);
+        xhr.open('POST', 'http://127.0.0.1:8000/new_client/', true);
 
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
                 let response = JSON.parse(xhr.responseText);
-                alert(`${response["name"]} создан`);
+                alert(`${response["client.name"]} создан`);
                 window.location.href = "/";
             } else {
                 console.log('Ошибка: ' + xhr.status);
@@ -54,7 +54,7 @@ form.addEventListener('submit', function (e) {
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
                 let response = JSON.parse(xhr.responseText);
-                alert(`${response["name"]} изменен`);
+                alert(`${response["new_client.name"]} изменен`);
                 window.location.href = "/clients/";
             } else {
                 console.log('Ошибка: ' + xhr.status);
@@ -72,7 +72,7 @@ form.addEventListener('submit', function (e) {
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
                 let response = JSON.parse(xhr.responseText);
-                alert(`Заказ ${response["order.id"]} изменен`);
+                alert(`Заказ ${response["new_order.id"]} изменен`);
                 window.location.href = "/";
             } else {
                 console.log('Ошибка: ' + xhr.status);

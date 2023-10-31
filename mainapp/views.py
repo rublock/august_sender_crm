@@ -60,7 +60,7 @@ def edit_order(request, id):
 
         if order_change_form.is_valid():
             new_order = order_change_form.save()
-            return JsonResponse({'name': new_order.id})
+            return JsonResponse({'new_order.id': new_order.id})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:
@@ -91,7 +91,7 @@ def new_client(request):
 
             client.save()
 
-            return JsonResponse({'name': client.name})
+            return JsonResponse({'client.name': client.name})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:
@@ -116,7 +116,7 @@ def edit_client(request, id):
 
         if client_change_form.is_valid():
             new_client = client_change_form.save()
-            return JsonResponse({'name': new_client.name})
+            return JsonResponse({'new_client.name': new_client.name})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:

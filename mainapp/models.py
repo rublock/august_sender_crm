@@ -10,7 +10,6 @@ class Client(models.Model):
     address = models.CharField(verbose_name="Адрес доставки", blank=True, max_length=200)
     notes = models.CharField(verbose_name="Заметки", blank=True, max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.name}'

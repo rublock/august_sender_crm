@@ -19,9 +19,30 @@ class NewOrderForm(forms.Form):
     }))
     description = forms.CharField(
         label="Примечание", max_length=200, required=False, widget=forms.Textarea(attrs={
-            'class': 'form-control', 'rows': 3
+            'class': 'form-control',
+            'rows': 3
         })
     )
     status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1, widget=forms.Select(attrs={
         'class': 'form-select',
+    }))
+
+
+class NewClientForm(forms.Form):
+    name = forms.CharField(label="ФИО", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    contact = forms.CharField(label="Контакт", max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    where_from = forms.CharField(label="Источник заказа", required=False, max_length=200, widget=forms.TextInput(attrs={
+        'class': 'form-control'
+    }))
+    oder_details = forms.CharField(label="Индивидуальные условия заказа", required=False, max_length=200,
+                                   widget=forms.TextInput(attrs={
+                                       'class': 'form-control'
+                                   }))
+    address = forms.CharField(label="Адрес доставки", required=False, max_length=200, widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'rows': 3,
+    }))
+    notes = forms.CharField(label="Заметки", required=False, max_length=200, widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'rows': 3,
     }))

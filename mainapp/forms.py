@@ -1,5 +1,5 @@
 from django import forms
-from .models import Client, Order
+from .models import Client, Order, OrderPosition
 
 
 class NewOrderForm(forms.Form):
@@ -26,6 +26,20 @@ class NewOrderForm(forms.Form):
     status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1, widget=forms.Select(attrs={
         'class': 'form-select',
     }))
+
+
+class ChangeOrderForm(forms.ModelForm):
+    class Meta:
+        model = OrderPosition
+        fields = ['client', 'product', 'quantity', 'description', 'status']
+
+        widgets = {
+            'client': forms.Select(attrs={'class': 'form-select', }),
+            'product': forms.TextInput(attrs={'class': 'form-control'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'status': forms.Select(attrs={'class': 'form-select', }),
+        }
 
 
 class NewClientForm(forms.Form):

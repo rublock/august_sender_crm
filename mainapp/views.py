@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
-from .forms import NewOrderForm, NewClientForm, ChangeClientForm
+from .forms import NewOrderForm, NewClientForm, ChangeClientForm, ChangeOrderForm
 
 from .models import OrderPosition, Order, Client
 
@@ -50,6 +50,25 @@ def new_order(request):
 
         return render(request, "new_order.html", {
             "new_order_form": new_order_form,
+        })
+
+
+def edit_order(request, id):
+    if request.method == "POST":
+        order = OrderPosition.objects.get(id__iexact=id)
+        order_change_form = ChangeOrderForm(request.POST, instance=order)
+
+        if order_change_form.is_valid():
+            new_order = order_change_form.save()
+            return JsonResponse({'name': new_order.id})
+        else:
+            return JsonResponse({'error': 'Server error'}, status=400)
+    else:
+        order = OrderPosition.objects.get(id__iexact=id)
+        order_change_form = ChangeOrderForm(instance=order)
+
+        return render(request, "order.html", {
+            "order_change_form": order_change_form,
         })
 
 

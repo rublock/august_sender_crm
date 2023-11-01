@@ -59,8 +59,10 @@ def edit_order(request, id):
         order_change_form = ChangeOrderForm(request.POST, instance=order)
 
         if order_change_form.is_valid():
-            new_order = order_change_form.save()
-            return JsonResponse({'new_order.id': new_order.id})
+            button_pressed = request.POST.get('submit_button')
+            if button_pressed == 'Изменить':
+                new_order = order_change_form.save()
+                return JsonResponse({'new_order.id': new_order.id})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:

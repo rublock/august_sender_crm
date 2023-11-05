@@ -68,9 +68,17 @@ def edit_order(request, id):
         order_change_form = ChangeOrderForm(instance=order)
 
         return render(request, "order.html", {
-            "order_change_form": order_change_form,
+            'order_change_form': order_change_form,
+            'deleted_order': order.id,
         })
 
+
+def delete_order(request, id):
+    if request.method == "DELETE":
+        order = get_object_or_404(OrderPosition, id__iexact=id)
+        deleted_order = order.id
+        order.delete()
+        return JsonResponse({'deleted_order': deleted_order})
 
 def new_client(request):
     if request.method == "POST":

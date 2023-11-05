@@ -2,16 +2,28 @@ var url = window.location.href;
 var id = url.split("/").reverse()[0];
 
 let form = document.querySelector('.form')
-let del = document.querySelector('.delete');
 
-del.addEventListener('click', function (e) {
-    console.log('del')
+form.addEventListener('submit', function (e) {
+
     var csrftoken = getCookie('csrftoken');
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", 'http://127.0.0.1:8000/order/' + id, true);
-    xhr.setRequestHeader('X-CSRFToken', csrftoken);
-    xhr.send('del')
+    let formData = new FormData(form);
 
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+                alert(`Заказ #${response["order.id"]} создан`);
+                window.location.href = "/";
+            } else {
+                console.error('Произошла ошибка: ' + xhr.status);
+            }
+        }
+    }
+
+    xhr.open("POST", 'http://127.0.0.1:8000/order/' + id, false);
+    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+    xhr.send(FormData);
 
     function getCookie(name) {
         var value = "; " + document.cookie;
@@ -21,24 +33,6 @@ del.addEventListener('click', function (e) {
         }
     }
 })
-
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    let formData = new FormData(form);
-    let xhr = new XMLHttpRequest();
-
-    xhr.open("POST", 'http://127.0.0.1:8000/order/' + id, true);
-    xhr.send(formData)
-
-    xhr.onreadystatechange = function () {
-       if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText);
-       }
-    }
-})
-
 
 
 //console.log('welcome to august_sender_crm')

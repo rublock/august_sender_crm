@@ -1,89 +1,40 @@
-console.log('welcome to august_sender_crm')
-
-var url = window.location.href;
-var id = url.split("/").reverse()[0];
-
 let form = document.querySelector('.form')
+let deleteButton = document.querySelector('.delete')
 
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    let formData = new FormData(form);
-    let xhr = new XMLHttpRequest();
-
+form.addEventListener('htmx:afterRequest', function (event) {
     if (form.classList[1] == 'new_order') {
-        xhr.open('POST', 'http://127.0.0.1:8000/new_order/', true);
-
-        xhr.onload = function () {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                let response = JSON.parse(xhr.responseText);
-                alert(`Заказ #${response["order.id"]} создан`);
-                window.location.href = "/";
-            } else {
-                console.log('Ошибка: ' + xhr.status);
-            }
-        };
-
-        xhr.onerror = function () {
-            console.log('Произошла ошибка сети');
-        };
-
-        xhr.send(formData);
-
-    } else if (form.classList[1] == 'new_client') {
-        xhr.open('POST', 'http://127.0.0.1:8000/new_client/', true);
-
-        xhr.onload = function () {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                let response = JSON.parse(xhr.responseText);
-                alert(`${response["client.name"]} создан`);
-                window.location.href = "/";
-            } else {
-                console.log('Ошибка: ' + xhr.status);
-            }
-        };
-       xhr.onerror = function () {
-            console.log('Произошла ошибка сети');
-       };
-
-       xhr.send(formData);
-
-    } else if (form.classList[1] == 'edit_client') {
-        xhr.open('POST', 'http://127.0.0.1:8000/client/' + id, true);
-
-        xhr.onload = function () {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                let response = JSON.parse(xhr.responseText);
-                alert(`${response["new_client.name"]} изменен`);
-                window.location.href = "/clients/";
-            } else {
-                console.log('Ошибка: ' + xhr.status);
-            }
-        };
-       xhr.onerror = function () {
-            console.log('Произошла ошибка сети');
-       };
-
-       xhr.send(formData);
-
+        if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
+            let data = JSON.parse(event.detail.xhr.responseText);
+            alert(`Заказ ${data['new_order_id']} создан`)
+            window.location.href = '/';
+        }
     } else if (form.classList[1] == 'edit_order') {
-        xhr.open('POST', 'http://127.0.0.1:8000/order/' + id, true);
-
-        xhr.onload = function () {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                let response = JSON.parse(xhr.responseText);
-                alert(`Заказ ${response["new_order.id"]} изменен`);
-                window.location.href = "/";
-            } else {
-                console.log('Ошибка: ' + xhr.status);
-            }
-        };
-       xhr.onerror = function () {
-            console.log('Произошла ошибка сети');
-       };
-
-       xhr.send(formData);
-
+        if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
+            let data = JSON.parse(event.detail.xhr.responseText);
+            alert(`Заказ ${data['new_order_id']} изменен`)
+            window.location.href = '/';
+        }
+    } else if (form.classList[1] == 'new_client') {
+        if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
+            let data = JSON.parse(event.detail.xhr.responseText);
+            alert(`Клиент ${data['new_client_name']} создан`)
+            window.location.href = '/';
+        }
     }
+});
 
+deleteButton.addEventListener('htmx:afterRequest', function (event) {
+    if (deleteButton.classList[3] == 'order_delete') {
+      if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
+        let data = JSON.parse(event.detail.xhr.responseText);
+        alert(`Заказ ${data['deleted_order_id']} удален`)
+        window.location.href = '/';
+      }
+    } else if (deleteButton.classList[3] == 'client_delete') {
+      if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
+        let data = JSON.parse(event.detail.xhr.responseText);
+        alert(`Клиент ${data['deleted_client_name']} удален`)
+        window.location.href = '/';
+      }
+    }
 });

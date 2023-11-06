@@ -42,7 +42,7 @@ def new_order(request):
 
             order_position.save()
 
-            return JsonResponse({'order.id': order.id})
+            return JsonResponse({'new_order_id': order.id})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:
@@ -60,25 +60,26 @@ def edit_order(request, id):
 
         if order_change_form.is_valid():
             new_order = order_change_form.save()
-            return JsonResponse({'new_order.id': new_order.id})
+            return JsonResponse({'new_order_id': new_order.id})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:
         order = OrderPosition.objects.get(id__iexact=id)
-        order_change_form = ChangeOrderForm(instance=order)
+        edit_order_form = ChangeOrderForm(instance=order)
 
         return render(request, "order.html", {
-            'order_change_form': order_change_form,
-            'deleted_order': order.id,
+            'edit_order_form': edit_order_form,
+            'edit_order_id': order.id,
         })
 
 
 def delete_order(request, id):
     if request.method == "DELETE":
         order = get_object_or_404(OrderPosition, id__iexact=id)
-        deleted_order = order.id
+        deleted_order_id = order.id
         order.delete()
-        return JsonResponse({'deleted_order': deleted_order})
+        return JsonResponse({'deleted_order_id': deleted_order_id})
+
 
 def new_client(request):
     if request.method == "POST":
@@ -99,7 +100,7 @@ def new_client(request):
 
             client.save()
 
-            return JsonResponse({'client.name': client.name})
+            return JsonResponse({'new_client_name': client.name})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:
@@ -123,14 +124,28 @@ def edit_client(request, id):
         client_change_form = ChangeClientForm(request.POST, instance=client)
 
         if client_change_form.is_valid():
-            new_client = client_change_form.save()
-            return JsonResponse({'new_client.name': new_client.name})
+            edited_client = client_change_form.save()
+            return JsonResponse({'edited_client_name': edited_client.name})
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
     else:
         client = Client.objects.get(id__iexact=id)
-        client_change_form = ChangeClientForm(instance=client)
+        edit_client_form = ChangeClientForm(instance=client)
 
         return render(request, "client.html", {
-            "client_change_form": client_change_form,
+            "edit_client_form": edit_client_form,
+            'edited_client_id': client.id,
+            'edited_client_name': client.name,
+        })
+
+
+def delete_client(request, id):
+    if request.method == "DELETE":
+        client = get_object_or_404(Client, id__iexact=id)
+        deleted_client_id = client.id
+        deleted_client_name = client.name
+        client.delete()
+        return JsonResponse({
+            'deleted_client_name': deleted_client_name,
+            'deleted_client_id': deleted_client_id,
         })

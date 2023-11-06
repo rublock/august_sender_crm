@@ -13,4 +13,5 @@ urlpatterns = [
     path("client/<int:id>", views.edit_client, name="edit_client"),
     path("order/<int:id>", views.edit_order, name="edit_order"),
     path("delete_order/<int:id>", views.delete_order, name="delete_order"),
+    path("delete_client/<int:id>", views.delete_client, name="delete_client"),
 ]

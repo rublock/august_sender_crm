@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container card" style="align-items: center;">
-    <form class="form new_order" method="POST" style="margin: 20px 0px 20px 0px;">
-        {% csrf_token %}
-    <table>
-        {{ new_order_form }}
-    </table>
-    <button type="submit" class="btn btn-primary">Создать</button>
+    <form class="form new_order" style="margin: 20px 0px 20px 0px;" hx-post="" hx-target="#result" hx-swap="innerHTML">
+            {% csrf_token %}
+        <table>
+            {{ new_order_form }}
+        </table>
+        <button type="submit" class="btn btn-primary">Создать</button>
+    </form>
+    <div style="display: none;" id="result" hx-trigger="load"></div>
 </div>
 {% endblock %}
 

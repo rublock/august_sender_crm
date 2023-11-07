@@ -137,7 +137,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Установка продолжительности сессии в секундах
-SESSION_COOKIE_AGE = 1209600
+SESSION_COOKIE_AGE = 2592000
 
 LOGIN_REDIRECT_URL = '/'
 

@@ -11,7 +11,7 @@ class CustomLoginView(LoginView):
 
         if not remember_me:
             # Установим время истечения сеанса равным 0 секундам. Таким образом, он автоматически закроет сеанс после закрытия браузера. И обновим данные.
-            self.request.session.set_expiry(0)
+            self.request.session.set_expiry(3600)
             self.request.session.modified = True
 
         # В противном случае сеанс браузера будет таким же как время сеанса cookie "SESSION_COOKIE_AGE", определенное в settings.py

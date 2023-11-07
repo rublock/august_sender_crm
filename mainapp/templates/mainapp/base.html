@@ -11,7 +11,7 @@
     <title>August Sender</title>
 </head>
 <body class="d-flex flex-column h-100" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-
+{% if user.is_authenticated %}
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
     <a href="{% url 'mainapp:home_page' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
@@ -22,13 +22,27 @@
       <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:new_order' %}" class="btn btn-success" aria-current="page">Новый заказ</a></li>
       <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:new_client' %}" class="btn btn-success" aria-current="page">Новый клиент</a></li>
       <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:client_list' %}" class="btn btn-success" aria-current="page">Клиенты</a></li>
-      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'orders' %}" class="btn btn-danger" aria-current="page">API заказы</a></li>
-      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'clients' %}" class="btn btn-danger" aria-current="page">API клиенты</a></li>
-      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'admin:index' %}" class="btn btn-warning" aria-current="page">Admin</a></li>
+      <!--<li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'orders' %}" class="btn btn-danger" aria-current="page">API заказы</a></li>-->
+      <!--<li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'clients' %}" class="btn btn-danger" aria-current="page">API клиенты</a></li>-->
+      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="#" class="btn btn-warning" aria-current="page">{{ user }}</a></li>
+        <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'logout' %}" class="btn btn-danger" aria-current="page">Выйти</a></li>
     </ul>
   </header>
 
 {% block content %}{% endblock %}
+
+{% else %}
+<div class="container" style="align-items: center; width: 30%; margin-top: 10%">
+    <h2> Войдите </h2>
+    <form method="post">
+        {{ form.username }}<br>
+        {{ form.password }}
+        <div class="mb-1">Запомнить меня: {{ form.remember_me }}</div>
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary btn-lg" value="Войти">
+    </form>
+</div>
+{% endif %}
 
 <script src="https://unpkg.com/htmx.org@1.9.7"></script>
 <script src="{% static 'js/app.js' %}"></script>

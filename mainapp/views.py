@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
@@ -6,12 +7,13 @@ from .forms import NewOrderForm, NewClientForm, ChangeClientForm, ChangeOrderFor
 from .models import OrderPosition, Order, Client
 
 
-@require_http_methods(['GET'])
+@login_required
 def order_positions_list(request):
-    order_positions_list_status_1 = OrderPosition.objects.filter(status=1)
-    order_positions_list_status_2 = OrderPosition.objects.filter(status=2)
-    order_positions_list_status_3 = OrderPosition.objects.filter(status=3)
-    order_positions_list_status_4 = OrderPosition.objects.filter(status=4)
+    if request.method == "GET":
+        order_positions_list_status_1 = OrderPosition.objects.filter(status=1)
+        order_positions_list_status_2 = OrderPosition.objects.filter(status=2)
+        order_positions_list_status_3 = OrderPosition.objects.filter(status=3)
+        order_positions_list_status_4 = OrderPosition.objects.filter(status=4)
 
     return render(request, 'home_page.html', {
         'order_positions_list_status_1': order_positions_list_status_1,
@@ -21,6 +23,7 @@ def order_positions_list(request):
     })
 
 
+@login_required
 def new_order(request):
     if request.method == "POST":
 
@@ -53,6 +56,7 @@ def new_order(request):
         })
 
 
+@login_required
 def edit_order(request, id):
     if request.method == "POST":
         order = OrderPosition.objects.get(id__iexact=id)
@@ -73,6 +77,7 @@ def edit_order(request, id):
         })
 
 
+@login_required
 def delete_order(request, id):
     if request.method == "DELETE":
         order = get_object_or_404(OrderPosition, id__iexact=id)
@@ -81,6 +86,7 @@ def delete_order(request, id):
         return JsonResponse({'deleted_order_id': deleted_order_id})
 
 
+@login_required
 def new_client(request):
     if request.method == "POST":
 
@@ -111,6 +117,7 @@ def new_client(request):
         })
 
 
+@login_required
 def client_list(request):
     client_list = Client.objects.all()
     return render(request, 'clients.html', {
@@ -118,6 +125,7 @@ def client_list(request):
     })
 
 
+@login_required
 def edit_client(request, id):
     if request.method == "POST":
         client = Client.objects.get(id__iexact=id)
@@ -139,6 +147,7 @@ def edit_client(request, id):
         })
 
 
+@login_required
 def delete_client(request, id):
     if request.method == "DELETE":
         client = get_object_or_404(Client, id__iexact=id)

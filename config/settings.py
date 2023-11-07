@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'mainapp',
     'rest_framework',
     'mainapp_api',
+    'accounts',
 ]
 
 REST_FRAMEWORK = {
@@ -134,3 +135,10 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Установка продолжительности сессии в секундах
+SESSION_COOKIE_AGE = 1209600
+
+LOGIN_REDIRECT_URL = '/'
+
+

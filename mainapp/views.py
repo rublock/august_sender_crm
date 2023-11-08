@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from .forms import NewOrderForm, NewClientForm, ChangeClientForm, ChangeOrderForm
@@ -158,3 +158,11 @@ def delete_client(request, id):
             'deleted_client_name': deleted_client_name,
             'deleted_client_id': deleted_client_id,
         })
+
+
+def check_client_name(request):
+    name = request.POST.get('client')
+    if Client.objects.filter(name=name).exists():
+        return HttpResponse("Такой клиент уже есть")
+    else:
+        return HttpResponse("Нет такого клиента")

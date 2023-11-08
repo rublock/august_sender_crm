@@ -8,6 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css'%}" type="text/css">
+    <!--HTMX-->
+    <script src="https://unpkg.com/htmx.org@1.9.7"></script>
     <title>August Sender</title>
 </head>
 <body class="d-flex flex-column h-100" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
@@ -44,7 +46,7 @@
 </div>
 {% endif %}
 
-<script src="https://unpkg.com/htmx.org@1.9.7"></script>
+
 <script src="{% static 'js/app.js' %}"></script>
 
 </body>

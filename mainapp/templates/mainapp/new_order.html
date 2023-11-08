@@ -1,14 +1,17 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 {% block content %}
 <div class="container card" style="align-items: center;">
     <form class="form new_order" style="margin: 20px 0px 20px 0px;" hx-post="" hx-target="#result" hx-swap="innerHTML">
             {% csrf_token %}
         <table>
-            {{ new_order_form }}
+            {% render_field new_order_form.client class="form-control" hx-post="/check_client_name/" hx-trigger="keyup" hx-target="#error_client_name" %}
         </table>
+
         <button type="submit" class="btn btn-primary">Создать</button>
     </form>
     <div style="display: none;" id="result" hx-trigger="load"></div>
 </div>
+<div id="error_client_name"></div>
 {% endblock %}
 

@@ -12,23 +12,11 @@ class NewOrderForm(forms.Form):
         (4, 'Срочно')
     ]
 
-    client = forms.ModelChoiceField(label="Клиент", queryset=Client.objects.all(), widget=forms.Select(attrs={
-        'class': 'form-select',
-    }))
-    product = forms.CharField(label="Продукт", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    quantity = forms.IntegerField(label="Количество", initial=1, widget=forms.NumberInput(attrs={
-        'class': 'form-control'
-    }))
-    description = forms.CharField(
-        label="Примечание", max_length=200, required=False, widget=forms.Textarea(attrs={
-            'class': 'form-control',
-            'rows': 3
-        })
-    )
-    status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1, widget=forms.Select(attrs={
-        'class': 'form-select',
-    }))
-
+    client = forms.CharField(label="Клиент", max_length=100)
+    product = forms.CharField(label="Продукт", max_length=100)
+    quantity = forms.IntegerField(label="Количество", initial=1)
+    description = forms.CharField(label="Примечание", max_length=200, required=False)
+    status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1)
 
 class ChangeOrderForm(forms.ModelForm):
     class Meta:

@@ -15,7 +15,7 @@ class NewOrderForm(forms.Form):
     client = forms.CharField(label="Клиент", max_length=100)
     product = forms.CharField(label="Продукт", max_length=100)
     quantity = forms.IntegerField(label="Количество", initial=1)
-    description = forms.CharField(label="Примечание", max_length=200, required=False)
+    description = forms.CharField(label="Примечание", max_length=500, required=False, widget=forms.Textarea)
     status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1)
 
 class ChangeOrderForm(forms.ModelForm):
@@ -34,7 +34,7 @@ class ChangeOrderForm(forms.ModelForm):
 
 class NewClientForm(forms.Form):
     name = forms.CharField(label="ФИО", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    contact = forms.CharField(label="Контакт", max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    contact = forms.CharField(label="Контакт", required=False, max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
     where_from = forms.CharField(label="Источник заказа", required=False, max_length=200, widget=forms.TextInput(attrs={
         'class': 'form-control'
     }))
@@ -42,7 +42,7 @@ class NewClientForm(forms.Form):
                                    widget=forms.TextInput(attrs={
                                        'class': 'form-control'
                                    }))
-    address = forms.CharField(label="Адрес доставки", max_length=200, widget=forms.Textarea(attrs={
+    address = forms.CharField(label="Адрес доставки", required=False, max_length=200, widget=forms.Textarea(attrs={
         'class': 'form-control',
         'rows': 3,
     }))

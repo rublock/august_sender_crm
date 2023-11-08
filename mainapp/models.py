@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Client(models.Model):
-    name = models.CharField(verbose_name="ФИО", max_length=100)
+    name = models.CharField(verbose_name="ФИО", unique=True, max_length=100)
     contact = models.CharField(verbose_name="Контакт", blank=True, max_length=200)
     where_from = models.CharField(verbose_name="Источник заказа", blank=True, max_length=200)
     oder_details = models.CharField(verbose_name="Индивидуальные условия заказа", blank=True, max_length=200)

@@ -21,12 +21,11 @@
     </a>
 
     <ul class="nav nav-pills">
-      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:new_order' %}" class="btn btn-success" aria-current="page">Новый заказ</a></li>
-      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:new_client' %}" class="btn btn-success" aria-current="page">Новый клиент</a></li>
+      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:new_order' %}" class="btn btn-success" aria-current="page">Создать</a></li>
       <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:client_list' %}" class="btn btn-success" aria-current="page">Клиенты</a></li>
       <!--<li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'orders' %}" class="btn btn-danger" aria-current="page">API заказы</a></li>-->
       <!--<li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'clients' %}" class="btn btn-danger" aria-current="page">API клиенты</a></li>-->
-      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="#" class="btn btn-warning" aria-current="page">{{ user }}</a></li>
+      <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="#" class="btn btn-light" aria-current="page">{{ user }}</a></li>
         <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'logout' %}" class="btn btn-danger" aria-current="page">Выйти</a></li>
     </ul>
   </header>

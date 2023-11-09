@@ -1,14 +1,27 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 {% block content %}
 <div class="container card" style="align-items: center;">
     <form class="form new_order" style="margin: 20px 0px 20px 0px;" hx-post="" hx-target="#result" hx-swap="innerHTML">
             {% csrf_token %}
-        <table>
-            {{ new_order_form }}
-        </table>
+            <label class="form-label">Клиент:</label>
+            {% render_field new_order_form.client class="form-control" autocomplete="off" list="datalistOptions" id="exampleDataList" %}
+            <datalist id="datalistOptions">
+                {% for i in client_list %}
+                    <option value="{{ i }}">
+                {% endfor %}
+            </datalist>
+            <label class="form-label">Продукт:</label>
+            {% render_field new_order_form.product class="form-control" %}
+            <label class="form-label">Количество:</label>
+            {% render_field new_order_form.quantity class="form-control" %}
+            <label class="form-label">Описание:</label>
+            {% render_field new_order_form.description class="form-control" %}
+            <label class="form-label">Описание:</label>
+            {% render_field new_order_form.status class="form-select" %}
+            <br>
         <button type="submit" class="btn btn-primary">Создать</button>
     </form>
     <div style="display: none;" id="result" hx-trigger="load"></div>
 </div>
 {% endblock %}
-

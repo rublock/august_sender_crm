@@ -1,3 +1,5 @@
 {% for i in client_list %}
     {% include "client_detail.html" %}
 {% endfor %}
+
+<a style="margin-top: 10px;" href="{% url 'mainapp:new_client' %}" class="btn btn-success" aria-current="page">Добавить клиента</a>

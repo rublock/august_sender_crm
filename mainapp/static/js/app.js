@@ -18,7 +18,13 @@ form.addEventListener('htmx:afterRequest', function (event) {
         if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
             let data = JSON.parse(event.detail.xhr.responseText);
             alert(`Клиент ${data['new_client_name']} создан`)
-            window.location.href = '/';
+            window.location.href = '/clients/';
+        }
+    } else if (form.classList[1] == 'edit_client') {
+        if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
+            let data = JSON.parse(event.detail.xhr.responseText);
+            alert(`Клиент ${data['edited_client_name']} изменен`)
+            window.location.href = '/clients/';
         }
     }
 });

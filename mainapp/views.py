@@ -39,7 +39,6 @@ def new_order(request):
                 existing_client = Client.objects.get(name=client_name)
 
                 if existing_client.name == client_name:
-
                     order_position = OrderPosition.objects.create(
                         order_id=order.id,
                         client=existing_client,
@@ -51,7 +50,7 @@ def new_order(request):
 
                     order_position.save()
 
-
+                    return JsonResponse({'new_order_id': order.id})
 
             except Exception:
 
@@ -116,26 +115,36 @@ def delete_order(request, id):
 @login_required
 def new_client(request):
     if request.method == "POST":
-
         form = NewClientForm(request.POST)
 
         if form.is_valid():
             form_data = form.cleaned_data
 
-            client = Client.objects.create(
-                name=form_data['name'],
-                contact=form_data['contact'],
-                where_from=form_data['where_from'],
-                oder_details=form_data['oder_details'],
-                address=form_data['address'],
-                notes=form_data['notes'],
-            )
+            client_name = form_data['name']
+            try:
+                existing_client = Client.objects.get(name=client_name)
 
-            client.save()
+                if existing_client.name == client_name:
+                    return HttpResponse('<div style="color: red">Такой клиент уже существует</div>')
 
-            return JsonResponse({'new_client_name': client.name})
+            except Exception:
+
+                client = Client.objects.create(
+                    name=form_data['name'],
+                    contact=form_data['contact'],
+                    where_from=form_data['where_from'],
+                    oder_details=form_data['oder_details'],
+                    address=form_data['address'],
+                    notes=form_data['notes'],
+                )
+
+                client.save()
+
+                return JsonResponse({'new_client_name': client.name})
+
         else:
             return JsonResponse({'error': 'Server error'}, status=400)
+
     else:
         new_client_form = NewClientForm()
 
@@ -185,3 +194,11 @@ def delete_client(request, id):
             'deleted_client_name': deleted_client_name,
             'deleted_client_id': deleted_client_id,
         })
+
+
+def check_username(request):
+    client_name = request.POST.get('name')
+    if Client.objects.filter(name=client_name).exists():
+        return HttpResponse('<div style="color: red">такой пользователь уже есть</div>')
+    else:
+        return HttpResponse('<div style="color: green">имя свободно</div>')

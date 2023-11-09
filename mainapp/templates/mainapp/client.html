@@ -2,6 +2,7 @@
 {% block content %}
 <div class="container card" style="align-items: center;">
     <form class="form edit_client" style="margin: 20px 0px 20px 0px;" hx-post="" hx-target="#result" hx-swap="innerHTML">
+       <div style="display: none;" id="result" hx-trigger="load"></div>
         {% csrf_token %}
     <table>
         {{ edit_client_form }}
@@ -10,7 +11,6 @@
     <button class="btn btn-danger delete client_delete" hx-delete="{% url 'mainapp:delete_client' edited_client_id %}"
                 hx-confirm="Вы точно хотите удалить {{ edited_client_name }} ?">Удалить</button>
     </form>
-    <div style="display: none;" id="result" hx-trigger="load"></div>
 </div>
 {% endblock %}
 

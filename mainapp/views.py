@@ -42,8 +42,6 @@ def new_order(request):
                     order_position = OrderPosition.objects.create(
                         order_id=order.id,
                         client=existing_client,
-                        product=form_data['product'],
-                        quantity=form_data['quantity'],
                         status=form_data['status'],
                         description=form_data['description'],
                     )
@@ -61,8 +59,6 @@ def new_order(request):
                 order_position = OrderPosition.objects.create(
                     order_id=order.id,
                     client=new_client,
-                    product=form_data['product'],
-                    quantity=form_data['quantity'],
                     status=form_data['status'],
                     description=form_data['description'],
                 )

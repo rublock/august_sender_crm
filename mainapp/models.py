@@ -36,10 +36,9 @@ class OrderPosition(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)
-    product = models.CharField(verbose_name="Продукт", blank=True, max_length=100)
-    quantity = models.IntegerField(default=1)
-    status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1)
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=200)
+    status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1)
+
 
     def __str__(self):
         return f'{self.status}'

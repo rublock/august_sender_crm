@@ -17,20 +17,27 @@ class NewOrderForm(forms.Form):
     description = forms.CharField(required=True,
                                   widget=SummernoteWidget(
                                       attrs={'summernote': {
-                                                'width': '100%',
-                                                'height': '500px'
-                                                }
-                                            }))
+                                          'width': '100%',
+                                          'height': '500px'
+                                      }
+                                      }))
     status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1)
 
+
 class ChangeOrderForm(forms.ModelForm):
+    description = forms.CharField(widget=SummernoteWidget(attrs={'summernote': {
+        'width': '100%',
+        'height': '500px'
+    }
+    }))
+
     class Meta:
         model = OrderPosition
         fields = ['client', 'description', 'status']
 
         widgets = {
             'client': forms.Select(attrs={'class': 'form-select', }),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'description': forms.Textarea(),
             'status': forms.Select(attrs={'class': 'form-select', }),
         }
 

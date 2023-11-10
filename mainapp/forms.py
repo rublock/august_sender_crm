@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django_summernote.widgets import SummernoteWidget
 
 from .models import Client, Order, OrderPosition
 
@@ -13,20 +14,22 @@ class NewOrderForm(forms.Form):
     ]
 
     client = forms.CharField(label="Клиент", max_length=100)
-    product = forms.CharField(label="Продукт", max_length=100)
-    quantity = forms.IntegerField(label="Количество", initial=1)
-    description = forms.CharField(label="Примечание", max_length=500, required=False, widget=forms.Textarea)
+    description = forms.CharField(required=True,
+                                  widget=SummernoteWidget(
+                                      attrs={'summernote': {
+                                                'width': '100%',
+                                                'height': '500px'
+                                                }
+                                            }))
     status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1)
 
 class ChangeOrderForm(forms.ModelForm):
     class Meta:
         model = OrderPosition
-        fields = ['client', 'product', 'quantity', 'description', 'status']
+        fields = ['client', 'description', 'status']
 
         widgets = {
             'client': forms.Select(attrs={'class': 'form-select', }),
-            'product': forms.TextInput(attrs={'class': 'form-control'}),
-            'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'status': forms.Select(attrs={'class': 'form-select', }),
         }

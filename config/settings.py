@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_summernote',
     'widget_tweaks',
     'bootstrap5',
     'mainapp',
@@ -141,5 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_COOKIE_AGE = 2592000
 
 LOGIN_REDIRECT_URL = '/'
+
+SUMMERNOTE_THEME = 'bs5'
 
 

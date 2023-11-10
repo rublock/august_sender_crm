@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% block content %}
 <div class="container card" style="align-items: center;">
-    <form class="form new_client" style="margin: 20px 0px 20px 0px;" hx-post="" hx-target="#result" hx-swap="innerHTML">
+    <form class="form new_client" style="margin: 20px 0px 20px 0px; width: 80%" hx-post="" hx-target="#result" hx-swap="innerHTML">
             {% csrf_token %}
         <label class="form-label">Имя:</label>
         {% render_field new_client_form.name hx-post="/check_username/" hx-target="#client_name_error" hx-trigger="keyup delay:0.1s" class="form-control" autocomplete="off" %}
@@ -16,7 +16,7 @@
         <label class="form-label">Адрес доставки</label>
         {% render_field new_client_form.address class="form-control" %}
         <label class="form-label">Заметки</label>
-        {% render_field new_client_form.notes class="form-control" style="rows: 3" %}
+        {% render_field new_client_form.notes class="form-control" %}
 
         <br>
         <button type="submit" class="btn btn-primary">Создать</button>

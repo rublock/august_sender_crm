@@ -1,4 +1,6 @@
-from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
 
 from mainapp import views
 from mainapp.apps import MainappConfig
@@ -15,9 +17,3 @@ urlpatterns = [
     path("delete_order/<int:id>", views.delete_order, name="delete_order"),
     path("delete_client/<int:id>", views.delete_client, name="delete_client"),
 ]
-
-htmx_urlpatterns = [
-    path("check_username/", views.check_username, name="check_username"),
-]
-
-urlpatterns += htmx_urlpatterns

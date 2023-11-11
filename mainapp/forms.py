@@ -18,7 +18,7 @@ class NewOrderForm(forms.Form):
                                   widget=SummernoteWidget(
                                       attrs={'summernote': {
                                           'width': '100%',
-                                          'height': '500px'
+                                          'height': '300px'
                                       }
                                       }))
     status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1)
@@ -27,7 +27,7 @@ class NewOrderForm(forms.Form):
 class ChangeOrderForm(forms.ModelForm):
     description = forms.CharField(widget=SummernoteWidget(attrs={'summernote': {
         'width': '100%',
-        'height': '500px'
+        'height': '300px'
     }
     }))
 

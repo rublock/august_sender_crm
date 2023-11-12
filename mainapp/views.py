@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
@@ -22,14 +23,18 @@ def order_positions_list(request):
         'order_positions_list_status_4': order_positions_list_status_4,
     })
 
+
 def send_orders(request):
-    if request.method == "GET":
-        order_positions_list_status_3 = OrderPosition.objects.filter(status=3)
+    order_positions_list_status_3 = OrderPosition.objects.filter(status=3)
+
+    pag = Paginator(OrderPosition.objects.filter(status=3), 20)
+    page = request.GET.get('page')
+    send_orders = pag.get_page(page)
 
     return render(request, 'send_orders.html', {
         'order_positions_list_status_3': order_positions_list_status_3,
+        'send_orders': send_orders,
     })
-
 
 
 @login_required

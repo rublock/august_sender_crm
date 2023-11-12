@@ -4,19 +4,44 @@
 <div class="container card">
     <table class="table">
         <thead>
-            <tr>
+        <tr>
             <th scope="col">#</th>
             <th scope="col">Клиент</th>
             <th scope="col">Примечание</th>
             <th scope="col">Действие</th>
-            </tr>
+        </tr>
         </thead>
         <tbody>
-            {% for n in order_positions_list_status_3 %}
-                {% include "partial_order_positions_detail_status_3.html" %}
-            {% endfor %}
+        {% for n in send_orders %}
+        {% include "partial_order_positions_detail_status_3.html" %}
+        {% endfor %}
         </tbody>
     </table>
+
+    <nav style="display: flex;
+                justify-content: center;
+                align-items: center;">
+        <ul class="pagination">
+            {% if send_orders.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            {% for i in send_orders.paginator.page_range %}
+            {% if send_orders.number == i %}
+            <li class="page-item"><a class="page-link" href='?page={{ i }}'> {{ i }} </a></li>
+            {% elif i > send_orders.number|add:'-3' and i < send_orders.number|add:'3' %}
+            <li class="page-item"><a class="page-link" href='?page={{ i }}'> {{ i }} </a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if send_orders.has_next %}
+            <li class="page-item"><a class="page-link" href='?page={{ page.next_page_number }}'> Next </a>
+                {% endif %}
+
+        </ul>
+    </nav>
+
+
 </div>
 
 {% endblock %}

@@ -1,6 +1,6 @@
-<tr class="table-dark">
+<tr class="table-secondary">
     <th scope="row">{{ n.order_id }}</th>
     <td>{{ n.client }}</td>
-    <td>{{ n.description }}</td>
+    <td>{{ n.description|safe }}</td>
     <td><a href="{% url 'mainapp:edit_order' n.id %}" aria-current="page">Изменить</a></td>
 </tr>

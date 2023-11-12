@@ -1,6 +1,6 @@
 <tr class="table-danger">
     <th scope="row">{{ j.order_id }}</th>
     <td>{{ j.client }}</td>
-    <td>{{ j.description }}</td>
+    <td>{{ j.description|safe }}</td>
     <td><a href="{% url 'mainapp:edit_order' j.id %}" aria-current="page">Изменить</a></td>
 </tr>

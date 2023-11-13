@@ -10,4 +10,4 @@ urlpatterns = [
     path("api/", include("mainapp_api.urls")),
     path("accounts/", include("accounts.urls")),
     path('summernote/', include('django_summernote.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -2,6 +2,7 @@
     <th scope="row">{{ i.order_id }}</th>
     <td>{{ i.client }}</td>
     <td>{{ i.description|safe }}</td>
+    <td>{{ i.track_number }}</td>
     <td><a href="{% url 'mainapp:edit_order' i.id %}" aria-current="page">Изменить</a></td>
 </tr>
 

@@ -21,6 +21,7 @@ class NewOrderForm(forms.Form):
                                           'height': '300px'
                                       }
                                       }))
+    track_number = forms.CharField(label="Трэк №", max_length=50)
     status = forms.ChoiceField(label="Статус", choices=CHOICES, initial=1)
 
 
@@ -33,11 +34,12 @@ class ChangeOrderForm(forms.ModelForm):
 
     class Meta:
         model = OrderPosition
-        fields = ['client', 'description', 'status']
+        fields = ['client', 'description', 'track_number', 'status']
 
         widgets = {
             'client': forms.Select(attrs={'class': 'form-select', }),
             'description': forms.Textarea(),
+            'track_number': forms.TextInput(attrs={'class': 'form-control', }),
             'status': forms.Select(attrs={'class': 'form-select', }),
         }
 

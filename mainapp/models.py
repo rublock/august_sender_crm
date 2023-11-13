@@ -37,6 +37,7 @@ class OrderPosition(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)
     description = models.CharField(verbose_name="Примечание", blank=True, max_length=200)
+    track_number = models.CharField(verbose_name="Трэк №", blank=True, max_length=50)
     status = models.PositiveSmallIntegerField(choices=OrderStatus.choices, default=OrderStatus.ORDER_1)
 
 

@@ -13,6 +13,8 @@
             </datalist>
             <label class="form-label">Описание:</label>
             {% render_field new_order_form.description|safe %}
+            <label class="form-label">Трэк №:</label>
+            {% render_field new_order_form.track_number class="form-control" %}
             <label class="form-label">Статус:</label>
             {% render_field new_order_form.status class="form-select" %}
             <br>

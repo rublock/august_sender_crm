@@ -26,6 +26,13 @@
         </a>
 
         <ul class="nav nav-pills">
+	    {% if user.is_superuser %}
+    		<li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'admin:index' %}"
+                                                                       class="btn btn-success" aria-current="page">Админка</a>
+            	</li>
+	    {% else %}
+
+            {% endif %}
             <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:new_order' %}"
                                                                        class="btn btn-success" aria-current="page">Создать</a>
             </li>

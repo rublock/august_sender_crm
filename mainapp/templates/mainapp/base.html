@@ -8,6 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css'%}" type="text/css">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <!--HTMX-->
     <script src="https://unpkg.com/htmx.org@1.9.7"></script>
     <title>August Sender</title>
@@ -26,6 +28,13 @@
         </a>
 
         <ul class="nav nav-pills">
+	    {% if user.is_superuser %}
+    		<li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'admin:index' %}"
+                                                                       class="btn btn-success" aria-current="page">Админка</a>
+            	</li>
+	    {% else %}
+
+            {% endif %}
             <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:new_order' %}"
                                                                        class="btn btn-success" aria-current="page">Создать</a>
             </li>
@@ -33,7 +42,7 @@
                                                                        class="btn btn-success" aria-current="page">Клиенты</a>
             </li>
             <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="{% url 'mainapp:send_orders' %}"
-                                                                       class="btn btn-secondary" aria-current="page">Отправленые</a>
+                                                                       class="btn btn-secondary" aria-current="page">Отправленные</a>
             </li>
             <li class="nav-item" style="margin: 12px 18px 0px 0px;"><a href="#" class="btn btn-light"
                                                                        aria-current="page">{{ user }}</a></li>

@@ -3,6 +3,6 @@
     <td>{{ i.client }}</td>
     <td>{{ i.description|safe }}</td>
     <td>{{ i.track_number }}</td>
-    <td><a href="{% url 'mainapp:edit_order' i.id %}" aria-current="page">Изменить</a></td>
+    <td><a class="btn btn-primary" href="{% url 'mainapp:edit_order' i.id %}" aria-current="page">Изменить</a></td>
 </tr>
 
